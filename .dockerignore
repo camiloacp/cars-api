@@ -1,0 +1,16 @@
+.venv
+__pycache__
+*.pyc
+.git
+.gitignore
+.env*
+data/
+mlartifacts/
+mlruns/
+*.db*
+tests/
+scripts/
+.pytest_cache/
+Dockerfile
+docker-compose.yml
+.dockerignore

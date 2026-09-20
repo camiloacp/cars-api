@@ -1,0 +1,12 @@
+# Versiones del entorno del modelo production (incluye serialización skops).
+mlflow==3.16.1
+numpy==2.2.6
+pandas==2.3.3
+pyarrow==25.0.1
+scikit-learn==1.7.2
+scipy==1.15.3
+skops==0.15.0
+
+fastapi==0.141.1
+uvicorn==0.53.0
+python-dotenv==1.2.3

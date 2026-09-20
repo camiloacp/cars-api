@@ -216,3 +216,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Datos y configuración local de MLflow
+/data/
+/mlartifacts/
+/mlruns/
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+.env*
+!.env.example
