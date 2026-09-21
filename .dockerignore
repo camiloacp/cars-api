@@ -4,7 +4,6 @@ __pycache__
 .git
 .gitignore
 .env*
-data/
 mlartifacts/
 mlruns/
 *.db*
@@ -14,3 +13,4 @@ scripts/
 Dockerfile
 docker-compose.yml
 .dockerignore
+model/
