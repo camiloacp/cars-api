@@ -67,6 +67,10 @@ def get_model(request: Request):
         raise HTTPException(status_code=503, detail="Modelo no disponible")
     return model
 
+@app.get("/")
+def index():
+    return {"message": "Cars Api"}
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
