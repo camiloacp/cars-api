@@ -3,24 +3,28 @@ import math
 import os
 from contextlib import asynccontextmanager
 
-import mlflow.pyfunc
 import pandas as pd
+import skops.io as sio
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, ConfigDict
 
 logger = logging.getLogger("uvicorn.error")
 
-# Apuntamos directamente a la carpeta local donde se guardó el modelo
+# Carpeta local donde se guardó el modelo (contiene model.skops)
 MODEL_URI = os.getenv("MODEL_URI", "model")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.state.model = None
-    logger.info("Cargando modelo desde artefacto local: %s", MODEL_URI)
+    model_path = os.path.join(MODEL_URI, "model.skops")
+    logger.info("Cargando modelo desde artefacto local: %s", model_path)
     try:
-        # Cargamos directamente de la ruta local. No necesitamos set_tracking_uri.
-        app.state.model = mlflow.pyfunc.load_model(MODEL_URI)
+        # Carga directa con skops: sin mlflow en producción.
+        # trusted debe ser lista explícita (el bool se eliminó en skops 0.10 por CVE-2024-37065)
+        trusted_types = sio.get_untrusted_types(file=model_path)
+        logger.info("Tipos a confiar para skops: %s", trusted_types)
+        app.state.model = sio.load(model_path, trusted=trusted_types)
     except Exception:
         logger.exception("No se pudo cargar el modelo; revisa la ruta local de artefactos")
         raise

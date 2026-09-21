@@ -9,5 +9,3 @@ services:
     environment:
       - MODEL_URI=/app/model
       - CORS_ALLOWED_ORIGINS=http://localhost:3000
-      # AGREGA ESTA LÍNEA AQUÍ PARA LA EJECUCIÓN DE LA API
-      - MLFLOW_SKOPS_TRUSTED_TYPES=True 
